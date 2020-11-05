@@ -4,12 +4,14 @@ $(document).ready(function () {
     if(localStorage.getItem("searches") != null){
         lastSearches = JSON.parse(localStorage.getItem("searches"));
 
-        console.log(lastSearches);
         var historyDiv = $("#history");
 
-        for (var i = 0; i < lastSearches; i++) {
+        for (var i = 0; i < lastSearches.length; i++) {
             var btn = $("<button>").text(lastSearches[i]);
-            historyDiv.append(btn);
+            var div = $("<div>").addClass("mt-2 mb-2 col-sm-6");
+
+            div.append(btn);
+            historyDiv.append(div);
         }
     }
 
@@ -17,17 +19,19 @@ $(document).ready(function () {
         var cityText = $("#city").val();
         var historyDiv = $("#history");
 
-        if (lastSearches.indexOf(cityText)) {
+        if (lastSearches.indexOf(cityText) == -1) {
             lastSearches.push(cityText);
             localStorage.setItem("searches", JSON.stringify(lastSearches));
 
-            console.log(lastSearches);
 
             historyDiv.empty();
 
-            for (var i = 0; i < lastSearches; i++) {
+            for (var i = 0; i < lastSearches.length; i++) {
                 var btn = $("<button>").text(lastSearches[i]);
-                historyDiv.append(btn);
+                var div = $("<div>").addClass("mt-2 mb-2 col-sm-6");
+
+                div.append(btn);
+                historyDiv.append(div);
             }
         }
     });
