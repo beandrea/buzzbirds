@@ -44,6 +44,11 @@ $(document).ready(function () {
             type: "GET"
         }).then(function (response) {
             console.log(response);
+
+            var day = new Date;
+            var date = day.toDateString();
+            var h1 = $("<h1>").text(cityText + " (" + date + ")");
+            $("#current").append(h1);
         });
     });
 });
