@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var apiKey = "91740392b403e980dc4396057af69b35";
+
     $("search").on("click", function() {
         var value = $("#city").val();
         $("#city").val("");
@@ -15,8 +17,6 @@ $(document).ready(function () {
     }
 
     function searchWeather(value) {
-        var apiKey = "91740392b403e980dc4396057af69b35";
-
         $.ajax({
             type: "GET",
             url: "https://api.openweathermap.org/data/2.5/forecast?q=" + value + "&appid=" + apiKey,
@@ -45,6 +45,21 @@ $(document).ready(function () {
 
                 getForcast(value);
                 getUVIndex(data.coord.lat, data.coord.lon);
+            }
+        });
+    }
+
+    function getForcast(value) {
+        $.ajax({
+            type: "GET",
+            url: "http://api.openweathermap.org/data/2.5/forecast?q=" + value + "&appid=" + apiKey + "&units=imperial",
+            dataType: "json",
+            success: function(data) {
+                $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
+
+                for(let i = 0; i < data.list.length; i++){
+                    
+                }
             }
         });
     }
