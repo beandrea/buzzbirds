@@ -31,14 +31,21 @@ $(document).ready(function () {
 
                 $("#today").empty();
 
-                var title = $("<h3>").addClass("");
-            }
-    
+                var title = $("<h3>").addClass("card-title").text(data.name + " (" + new Date().toLocaleDateString() + ") ");
+                var card = $("<div>").addClass("card");
+                var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
+                var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity +"%");
+                var cardBody = $("<div>").addClass("card-body");
+                var img = $("<img>").attr("src", "https://openweather.org/img/w/" + data.weather[0].icon + ".png");
 
-            var day = new Date;
-            var date = day.toDateString();
-            var h1 = $("<h1>").text(cityText + " (" + date + ")");
-            $("#current").append(h1);
+                title.append(img);
+                cardBody.append(title, temp, humid, wind);
+                card.append(cardBody);
+                $("#today").append(card);
+
+                getForcast(value);
+                getUVIndex(data.coord.lat, data.coord.lon);
+            }
         });
     }
 });
