@@ -2,18 +2,19 @@ $(document).ready(function () {
     $("search").on("click", function() {
         var value = $("#city").val();
         $("#city").val("");
-        seachWeather(value);
+        searchWeather(value);
     });
 
     $(".history").on("click", "li", function() {
-        seachWeather($(this).text());
+        searchWeather($(this).text());
     });
 
     function makeRow(text) {
         var li = $("<li>").addClass("list-group-item list-group-item-action");
+        $(".history").append(li);
     }
 
-    
+    function searchWeather(value) {
         var apiKey = "91740392b403e980dc4396057af69b35";
 
         $.ajax({
@@ -27,4 +28,5 @@ $(document).ready(function () {
             var h1 = $("<h1>").text(cityText + " (" + date + ")");
             $("#current").append(h1);
         });
+    }
 });
