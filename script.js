@@ -81,8 +81,29 @@ $(document).ready(function () {
             url: "http://api.openweathermap.org/data/2.5/uvi?appid" + apiKey + "&lat=" + lat + "&lon=" + lon,
             dataType: "json",
             success: function (data) {
-                var uv = $("<p>");
+                var uv = $("<p>").text("UV Index: ");
+                var btn = $("<span>").addClass("btn btn-sm").text(data.value);
+
+                if(data.value < 3) {
+                    btn.addClass("btn-success");
+                } else if(data.value < 7) {
+                    btn.addClass("btn-warning");
+                } else {
+                    btn.addClass("btn-danger");
+                }
+
+                $("#today .card-body").append(uv.append(btn));
             }
         });
+    }
+
+    var history = JSON.parse(localStorage.getItem("history")) || [];
+
+    if(history.length > 0) {
+        searchWeather(history[history.length - 1]);
+    }
+
+    for(let i = 0; i < history.length; i++){
+        makeRow(history[i]);
     }
 });
