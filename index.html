@@ -17,16 +17,16 @@
         <h1 class="display-4">Buzzbirds Weather Dashboard</h1>
     </header>
 
-    <div class="col-sm-8 float-left">
-        <div class="input-group mb-3 col-sm-10">
-            <div class="input-group-prepend">
-                <span class="input-group-text bg-info">Search a City: </span>
-            </div>
-            <input type="text" id="city" class="form-control col-sm-4">
-            <button type="button" class="btn btn-secondary" id="search">Search</button>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-lg-3 bg-light">
+                <h5 class="mt-1">Search for a City: </h5>
+                <div class="form-inline form-group">
+                    <input class="form-control" type="text" id="city">
+                    <button class="btn btn-primary" id="search"></button>
+                </div>
+            </aside>
         </div>
-
-        <div id="history" class="col-sm-10"></div>
     </div>
 
     <div class="col-sm-4 float-left">
