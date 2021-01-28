@@ -1,42 +1,19 @@
-var lastSearches = [];
-
 $(document).ready(function () {
-    if(localStorage.getItem("searches") != null){
-        lastSearches = JSON.parse(localStorage.getItem("searches"));
+    $("search").on("click", function() {
+        var value = $("#city").val();
+        $("#city").val("");
+        seachWeather(value);
+    });
 
-        var historyDiv = $("#history");
+    $(".history").on("click", "li", function() {
+        seachWeather($(this).text());
+    });
 
-        for (var i = 0; i < lastSearches.length; i++) {
-            var btn = $("<button>").addClass("btn");
-            btn.text(lastSearches[i]);
-            var div = $("<div>").addClass("mt-2 mb-2 col-sm-10");
-
-            div.append(btn);
-            historyDiv.append(div);
-        }
+    function makeRow(text) {
+        var li = $("<li>").addClass("list-group-item list-group-item-action");
     }
 
-    $("#search").on("click", function () {
-        var cityText = $("#city").val();
-        var historyDiv = $("#history");
-
-        if (lastSearches.indexOf(cityText) == -1) {
-            lastSearches.push(cityText);
-            localStorage.setItem("searches", JSON.stringify(lastSearches));
-
-
-            historyDiv.empty();
-
-            for (var i = 0; i < lastSearches.length; i++) {
-                var btn = $("<button>").addClass("btn");
-                btn.text(lastSearches[i]);
-                var div = $("<div>").addClass("mt-2 mb-2 col-sm-10");
-
-                div.append(btn);
-                historyDiv.append(div);
-            }
-        }
-
+    
         var apiKey = "91740392b403e980dc4396057af69b35";
 
         $.ajax({
@@ -50,5 +27,4 @@ $(document).ready(function () {
             var h1 = $("<h1>").text(cityText + " (" + date + ")");
             $("#current").append(h1);
         });
-    });
 });
