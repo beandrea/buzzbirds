@@ -18,10 +18,22 @@ $(document).ready(function () {
         var apiKey = "91740392b403e980dc4396057af69b35";
 
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + cityText + "&appid=" + apiKey,
-            type: "GET"
-        }).then(function (response) {
-            console.log(response);
+            type: "GET",
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + value + "&appid=" + apiKey,
+            dataType: "json",
+            success: function(data) {
+                if(history.indexOf(value) === -1){
+                    history.pushState(value);
+                    localStorage.setItem("history", JSON.stringify(history));
+
+                    makeRow(value);
+                }
+
+                $("#today").empty();
+
+                var title = $("<h3>").addClass("");
+            }
+    
 
             var day = new Date;
             var date = day.toDateString();
