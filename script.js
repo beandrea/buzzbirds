@@ -19,7 +19,7 @@ $(document).ready(function () {
     function searchWeather(value) {
         $.ajax({
             type: "GET",
-            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + value + "&appid=" + apiKey,
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + value + "&appid=" + apiKey + "&units=imperial",
             dataType: "json",
             success: function (data) {
                 console.log(data);
@@ -33,11 +33,11 @@ $(document).ready(function () {
 
                 $("#today").empty();
 
-                var title = $("<h3>").addClass("card-title").text(data.name + " (" + new Date().toLocaleDateString() + ") ");
+                var title = $("<h3>").addClass("card-title").text(data.city.name + " (" + new Date().toLocaleDateString() + ") ");
                 var card = $("<div>").addClass("card");
                 var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.list[0].wind.speed + " MPH");
                 var humid = $("<p>").addClass("card-text").text("Humidity: " + data.list[0].main.humidity + "%");
-                var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °F");
+                var temp = $("<p>").addClass("card-text").text("Temperature: " + data.list[0].main.temp + " °F");
                 var cardBody = $("<div>").addClass("card-body");
                 var img = $("<img>").attr("src", "https://openweather.org/img/w/" + data.list[0].weather[0].icon + ".png");
 
