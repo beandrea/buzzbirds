@@ -22,8 +22,6 @@ $(document).ready(function () {
             url: "https://api.openweathermap.org/data/2.5/forecast?q=" + value + "&appid=" + apiKey + "&units=imperial",
             dataType: "json",
             success: function (data) {
-                console.log(data);
-
                 if (history.indexOf(value) === -1) {
                     history.push(value);
                     localStorage.setItem("history", JSON.stringify(history));
@@ -39,7 +37,7 @@ $(document).ready(function () {
                 var humid = $("<p>").addClass("card-text").text("Humidity: " + data.list[0].main.humidity + "%");
                 var temp = $("<p>").addClass("card-text").text("Temperature: " + data.list[0].main.temp + " °F");
                 var cardBody = $("<div>").addClass("card-body");
-                var img = $("<img>").attr("src", "https://openweather.org/img/w/" + data.list[0].weather[0].icon + ".png");
+                var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png");
 
                 title.append(img);
                 cardBody.append(title, temp, humid, wind);
@@ -47,7 +45,7 @@ $(document).ready(function () {
                 $("#today").append(card);
 
                 getForcast(value);
-                getUVIndex(data.coord.lat, data.coord.lon);
+                getUVIndex(data.city.coord.lat, data.city.coord.lon);
             }
         });
     }
@@ -58,6 +56,8 @@ $(document).ready(function () {
             url: "http://api.openweathermap.org/data/2.5/forecast?q=" + value + "&appid=" + apiKey + "&units=imperial",
             dataType: "json",
             success: function (data) {
+                console.log(data);
+                
                 $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
 
                 for (let i = 0; i < data.list.length; i++) {
